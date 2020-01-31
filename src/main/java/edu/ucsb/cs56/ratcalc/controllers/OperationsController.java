@@ -90,8 +90,15 @@ public class OperationsController {
         logger.info("getSubtractResult ratCalcForm=" + ratCalcForm);
         ratCalcForm.setOp("-");
 
-        // TODO: Fill this in with appropriate code
-        
+        if (!bindingResult.hasErrors() && !checkDenominatorErrors(ratCalcForm)) {
+            Rational r1 = new Rational(ratCalcForm.getNum1(), ratCalcForm.getDenom1());
+            Rational r2 = new Rational(ratCalcForm.getNum2(), ratCalcForm.getDenom2());
+            Rational result = Rational.difference(r1, r2);
+            logger.info("r1=" + r1 + " r2=" + r2 + " result=" + result);
+            ratCalcForm.setNumResult(result.getNumerator());
+            ratCalcForm.setDenomResult(result.getDenominator());
+        }
+
         model.addAttribute("ratCalcForm", ratCalcForm);
         return "operations/subtract";
     }
@@ -102,6 +109,50 @@ public class OperationsController {
         ratCalcForm.setOp("x");
         model.addAttribute("ratCalcForm", ratCalcForm);
         return "operations/multiply";
+    }
+
+    @GetMapping("/multiply/results")
+    public String getMultiplyResult(Model model, @Valid RatCalcForm ratCalcForm, BindingResult bindingResult) {
+        logger.info("getMultiplyResult ratCalcForm=" + ratCalcForm);
+        ratCalcForm.setOp("x");
+
+        if (!bindingResult.hasErrors() && !checkDenominatorErrors(ratCalcForm)) {
+            Rational r1 = new Rational(ratCalcForm.getNum1(), ratCalcForm.getDenom1());
+            Rational r2 = new Rational(ratCalcForm.getNum2(), ratCalcForm.getDenom2());
+            Rational result = Rational.product(r1, r2);
+            logger.info("r1=" + r1 + " r2=" + r2 + " result=" + result);
+            ratCalcForm.setNumResult(result.getNumerator());
+            ratCalcForm.setDenomResult(result.getDenominator());
+        }
+
+        model.addAttribute("ratCalcForm", ratCalcForm);
+        return "operations/multiply";
+    }
+
+    @GetMapping("/divide")
+    public String getDivide(Model model) {
+        RatCalcForm ratCalcForm = new RatCalcForm();
+        ratCalcForm.setOp("/");
+        model.addAttribute("ratCalcForm", ratCalcForm);
+        return "operations/divide";
+    }
+
+    @GetMapping("/divide/results")
+    public String getDivideResult(Model model, @Valid RatCalcForm ratCalcForm, BindingResult bindingResult) {
+        logger.info("getDivideResult ratCalcForm=" + ratCalcForm);
+        ratCalcForm.setOp("/");
+
+        if (!bindingResult.hasErrors() && !checkDenominatorErrors(ratCalcForm) && !checkDivideByZero(ratCalcForm)) {
+            Rational r1 = new Rational(ratCalcForm.getNum1(), ratCalcForm.getDenom1());
+            Rational r2 = new Rational(ratCalcForm.getNum2(), ratCalcForm.getDenom2());
+            Rational result = Rational.quotient(r1, r2);
+            logger.info("r1=" + r1 + " r2=" + r2 + " result=" + result);
+            ratCalcForm.setNumResult(result.getNumerator());
+            ratCalcForm.setDenomResult(result.getDenominator());
+        }
+
+        model.addAttribute("ratCalcForm", ratCalcForm);
+        return "operations/divide";
     }
 
 }
