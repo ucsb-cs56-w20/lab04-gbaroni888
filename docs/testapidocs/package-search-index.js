@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"edu.ucsb.cs56.ratcalc.controllers"},{"l":"edu.ucsb.cs56.ratcalc.model"}]

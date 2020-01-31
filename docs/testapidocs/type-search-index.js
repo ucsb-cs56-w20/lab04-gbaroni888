@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"edu.ucsb.cs56.ratcalc.controllers","l":"HomeControllerTest"},{"p":"edu.ucsb.cs56.ratcalc.controllers","l":"OperationsControllerTest"},{"p":"edu.ucsb.cs56.ratcalc.model","l":"RationalTest"}]
